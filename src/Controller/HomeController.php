@@ -3,22 +3,19 @@
 namespace Controller;
 
 use Attributes\Route;
-use Entity\DatabaseConnection;
+use View\Render;
 
 class HomeController
 {
 
     #[Route("GET", "/")]
     public function home() {
-        return '<h1>Home route</h1>';
+        Render::render("home");
     }
 
     #[Route("GET", "/s")]
     public function second() {
-        $db = new DatabaseConnection();
-        $db->connect();
-        dump($db->query("SELECT version()"));
-        return "DEDE";
+        return "<p>Test HTMX</p>";
     }
 
 }
