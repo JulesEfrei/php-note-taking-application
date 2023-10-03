@@ -4,12 +4,24 @@ services:
   # PHP Application Service
   php-app:
     build:
-      context: ./
+      context: .
       dockerfile: Dockerfile
     ports:
       - "8888:80"
+    volumes:
+      - .:/var/www/html
     depends_on:
       - postgres-db
+
+  nginx:
+    image: nginx:latest
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx/config:/etc/nginx/conf.d
+      - .:/var/www/html
+    depends_on:
+      - php-app
 
   # PostgreSQL Database Service
   postgres-db:
@@ -18,6 +30,7 @@ services:
       POSTGRES_USER: root
       POSTGRES_PASSWORD: root
       POSTGRES_DB: note_taking_app
+      POSTGRES_HOST_AUTH_METHOD: trust
     ports:
       - "5432:5432"
     volumes:

@@ -3,18 +3,22 @@
 namespace Controller;
 
 use Attributes\Route;
+use Entity\DatabaseConnection;
 
 class HomeController
 {
 
     #[Route("GET", "/")]
     public function home() {
-        return '<h1>Root route</h1>';
+        return '<h1>Home route</h1>';
     }
 
-    #[Route("GET", "/second")]
+    #[Route("GET", "/s")]
     public function second() {
-        return '<h4>Second</h4>';
+        $db = new DatabaseConnection();
+        $db->connect();
+        dump($db->query("SELECT version()"));
+        return "DEDE";
     }
 
 }

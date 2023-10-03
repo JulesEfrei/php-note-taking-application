@@ -12,6 +12,8 @@ RUN apt-get update && \
 # Copy your PHP application code into the container
 COPY ./ /var/www/html
 
+RUN a2enmod rewrite
+
 # Expose port 80 for Apache web server
 EXPOSE 8888
 
