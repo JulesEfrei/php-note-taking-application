@@ -1,7 +1,9 @@
 <?php
 
 use Controller\HomeController;
+use Controller\AuthController;
 
 return [
-    HomeController::class
+    HomeController::class,
+    AuthController::class
 ];

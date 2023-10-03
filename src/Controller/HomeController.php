@@ -3,7 +3,6 @@
 namespace Controller;
 
 use Attributes\Route;
-use Entity\DatabaseConnection;
 use View\Render;
 
 class HomeController

@@ -20,7 +20,7 @@ class Render
         }
 
         //Header / Footer toggle
-        $activeFH = true;
+        $activeFH = $view !== "auth";
 
         require(__DIR__ . '/' . $view . '.php');
     }
