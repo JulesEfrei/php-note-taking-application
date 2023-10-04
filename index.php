@@ -1,5 +1,6 @@
 <?php
 
+session_start();
 require_once('vendor/autoload.php');
 
 /*
@@ -12,7 +13,7 @@ spl_autoload_register(function ($class_name) {
 
 use Controller\Router;
 
-$controllers = require  __DIR__ . '/config.php';
+$controllers = require __DIR__ . '/src/config/config.php';
 
 $router = new Router($controllers);
 

@@ -4,46 +4,38 @@ namespace Entity;
 
 use PDO;
 
-class DatabaseConnection
+class DatabaseConnection extends PDO
 {
 
-    private $connection;
-    private string $db_host = 'postgres-db';
-    private string $db_port = '5432';
-    private string $db_name = 'note_taking_app';
-    private string $db_user = 'root';
-    private string $db_pass = 'root';
+    private static $connection;
+    private const DB_HOST = 'postgres-db';
+    private const DB_PORT = '5432';
+    private const DB_NAME = 'note_taking_app';
+    private const DB_USER = 'root';
+    private const DB_PASS = 'root';
 
 
-    public function connect()
+    public function __construct()
     {
+        $dsn = "pgsql:host=" . self::DB_HOST . ";port=" . self::DB_PORT . ";dbname=" . self::DB_NAME;
+
         try {
-            $pdo = new PDO("pgsql:host=$this->db_host;port=$this->db_port;dbname=$this->db_name", $this->db_user, $this->db_pass);
-            $this->connection = $pdo;
+            parent::__construct($dsn, self::DB_USER, self::DB_PASS);
+
+            $this->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
+            $this->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         } catch
         (\PDOException $e) {
-            echo "Connection failed: " . $e->getMessage();
+            die($e->getMessage());
         }
     }
 
-    public function query($query)
+    public static function getInstance():self
     {
-        return $this->connection->query($query) or die('Query failed: ' . pg_last_error());
-    }
-
-    public function disconnect()
-    {
-        $this->connection = false;
-    }
-
-    public function getConnection()
-    {
-        return $this->connection;
-    }
-
-    public function setConnection($connection): void
-    {
-        $this->connection = $connection;
+        if(self::$connection === null){
+            self::$connection = new self();
+        }
+        return self::$connection;
     }
 
 }

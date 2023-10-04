@@ -2,13 +2,17 @@
 
 namespace Entity;
 
-class User
+class User extends Entity
 {
 
-    private int $id;
-    private string $name;
-    private string $email;
-    private string $password;
+    protected int $id;
+    protected string $name;
+    protected string $email;
+    protected string $password;
+
+    public function __construct() {
+        $this->table = "user";
+    }
 
     /**
      * @return int
@@ -21,9 +25,10 @@ class User
     /**
      * @param int $id
      */
-    public function setId(int $id): void
+    public function setId(int $id)
     {
         $this->id = $id;
+        return $this;
     }
 
     /**
@@ -37,9 +42,10 @@ class User
     /**
      * @param string $email
      */
-    public function setEmail(string $email): void
+    public function setEmail(string $email)
     {
         $this->email = $email;
+        return $this;
     }
 
     /**
@@ -53,9 +59,10 @@ class User
     /**
      * @param string $password
      */
-    public function setPassword(string $password): void
+    public function setPassword(string $password)
     {
         $this->password = $password;
+        return $this;
     }
 
     /**
@@ -69,9 +76,10 @@ class User
     /**
      * @param string $name
      */
-    public function setName(string $name): void
+    public function setName(string $name)
     {
         $this->name = $name;
+        return $this;
     }
 
 }
